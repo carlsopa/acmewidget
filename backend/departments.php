@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 }
 
 $sql = "SELECT a.associateId, a.associateName, a.associateTitle, d.departmentID, d.departmentName FROM acme_associates a, acme_departments d WHERE a.associateId = d.associateId;";
-$sql .= "SELECT associateName FROM acme_associates;";
+$sql .= "SELECT associateName, associateTitle, associateId FROM acme_associates;";
 
 if ($conn->multi_query($sql)) {
     $data = array();

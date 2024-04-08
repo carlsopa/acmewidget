@@ -47,11 +47,27 @@
     <div class="form-row">
       <div class="form-group col-sm-6">
         <label for="preparerInput">Preparer</label>
-        <input class="form-control" id="preparerInput" name="preparerInput" type="text" />
+        <select
+          class="form-control"
+          id="departmentInput"
+          name="preparerInput"
+          v-model="preparerName"
+        >
+          <option v-for="person in people" :key="person.associateId">
+            {{ person.associateName }}
+          </option>
+        </select>
       </div>
       <div class="form-group col-sm-6">
         <label for="titleInput">Title</label>
-        <input class="form-control" id="titleInput" name="titleInput" type="text" />
+        <input
+          class="form-control"
+          id="titleInput"
+          name="titleInput"
+          readonly
+          :placeholder="`${preparerTitle}`"
+          v-model="preparerTitle"
+        />
       </div>
     </div>
     <div class="form-row">
@@ -60,6 +76,8 @@
         <input class="form-control" id="activityInput" name="titleInput" type="text" />
       </div>
     </div>
+    <input type="hidden" name="did" :value="`${deptId}`" />
+    <input type="hidden" name="eid" :value="`${employeeId}`" />
   </form>
 </template>
 <script lang="ts">
@@ -69,10 +87,14 @@ import type { Associate, Department } from '../types'
 export default defineComponent({
   data() {
     return {
+      preparerName: '',
       departmentName: '',
+      preparerTitle: '',
       supervisorName: '' as String,
       department: [] as Department[],
-      people: [] as Associate[]
+      people: [] as Associate[],
+      employeeId: 0,
+      deptId: 0
     }
   },
   created() {
@@ -102,7 +124,20 @@ export default defineComponent({
 
       this.department
         .filter((record) => record.departmentName == newname)
-        .forEach((p) => (this.supervisorName = p.associateName))
+        .forEach((p) => {
+          this.supervisorName = p.associateName
+          this.deptId = p.departmentID
+        })
+    },
+    preparerName: function (newname, oldname) {
+      console.log(newname)
+      this.people
+        .filter((record) => record.associateName == newname)
+        .forEach((p) => {
+          console.log(p)
+          this.preparerTitle = p.associateTitle
+          this.employeeId = p.associateId
+        })
     }
   }
 })
