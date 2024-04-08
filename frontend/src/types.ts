@@ -4,3 +4,8 @@ export interface Associate {
   associateTitle: string
   supervisorRole: boolean
 }
+export interface Department {
+  departmentID: number
+  departmentName: String
+  associateName: String
+}
