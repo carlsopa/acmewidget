@@ -23,6 +23,7 @@
           name="dateInput"
           type="text"
           placeholder="date goes here"
+          v-model="formData.createdDate"
           readonly
         />
       </div>
@@ -41,7 +42,13 @@
       </div>
       <div class="form-group col-sm-6">
         <label for="locationInput">Location</label>
-        <input class="form-control" id="locationInput" name="locationInput" type="text" />
+        <input
+          class="form-control"
+          id="locationInput"
+          name="locationInput"
+          type="text"
+          v-model="formData.location"
+        />
       </div>
     </div>
     <div class="form-row">
@@ -73,12 +80,19 @@
     <div class="form-row">
       <div class="form-group col">
         <label for="activityInput">Activity</label>
-        <input class="form-control" id="activityInput" name="titleInput" type="text" />
+        <input
+          class="form-control"
+          id="activityInput"
+          name="titleInput"
+          type="text"
+          v-model="formData.activity"
+        />
       </div>
     </div>
     <input type="hidden" name="did" :value="`${deptId}`" />
     <input type="hidden" name="eid" :value="`${employeeId}`" />
   </form>
+  <button @click="createJSA()">Click Me!!</button>
 </template>
 <script lang="ts">
 import axios from 'axios'
@@ -94,7 +108,14 @@ export default defineComponent({
       department: [] as Department[],
       people: [] as Associate[],
       employeeId: 0,
-      deptId: 0
+      deptId: 0,
+      formData: {
+        dept: 0,
+        createdDate: '',
+        preparer: 0,
+        location: '',
+        activity: ''
+      }
     }
   },
   created() {
@@ -116,6 +137,12 @@ export default defineComponent({
         .catch((error) => {
           console.error('Error fetching data:', error)
         })
+    },
+    createJSA() {
+      console.log(this.formData)
+      axios.post('http://localhost/create.php', this.formData).then((response) => {
+        console.log(response)
+      })
     }
   },
   watch: {
@@ -126,7 +153,7 @@ export default defineComponent({
         .filter((record) => record.departmentName == newname)
         .forEach((p) => {
           this.supervisorName = p.associateName
-          this.deptId = p.departmentID
+          this.formData.dept = p.departmentID
         })
     },
     preparerName: function (newname, oldname) {
@@ -136,7 +163,7 @@ export default defineComponent({
         .forEach((p) => {
           console.log(p)
           this.preparerTitle = p.associateTitle
-          this.employeeId = p.associateId
+          this.formData.preparer = p.associateId
         })
     }
   }
