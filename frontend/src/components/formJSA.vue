@@ -1,6 +1,5 @@
 <template>
   <form>
-    <h2>Paul</h2>
     <div class="form-row">
       <div class="form-group col-sm-10">
         <label for="departmentInput">Department</label>
@@ -143,6 +142,11 @@ export default defineComponent({
       console.log(this.formData)
       axios.post('http://localhost/create.php', this.formData).then((response) => {
         console.log(response)
+        console.log(response.status)
+        if (response.status == 200) {
+          console.log('first good')
+          this.$emit('activate')
+        }
       })
     }
   },
