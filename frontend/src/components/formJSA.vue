@@ -119,6 +119,7 @@ export default defineComponent({
     }
   },
   created() {
+    this.formData.createdDate = new Date().toLocaleDateString()
     this.fetchData()
   },
   methods: {
