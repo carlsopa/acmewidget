@@ -9,18 +9,12 @@
             class="form-control col-sm-4"
             :placeholder="`${step.stepDescription}`"
           />
-          <input
-            type="text"
-            readonly
-            class="form-control col-sm-4"
-            :placeholder="`${step.Hazard}`"
-          />
-          <input
-            type="text"
-            readonly
-            class="form-control col-sm-4"
-            :placeholder="`${step.Control}`"
-          />
+          <div class="col-sm-8">
+            <div v-for="(h, x) in step['hazard']" :key="x" style="display: flex">
+              <input type="text" readonly class="form-control" :placeholder="`${h.hazard}`" />
+              <input type="text" readonly class="form-control" :placeholder="`${h.control}`" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -36,59 +30,69 @@
             v-model="formData.stepDescription"
           />
         </div>
-        <div class="form-group col-sm-3 child">
-          <label for="hazardSelection">Hazards</label>
-          <select
-            class="form-group"
-            id="hazardSelection"
-            name="hazardSelection"
-            v-model="hazardControl"
-            style="width: 150px"
+        <div id="hazardsSection" class="form-group col-sm-8">
+          <div
+            id="hazardSelectionContainer"
+            style="height: 40%; overflow: scroll; margin-bottom: 10px"
           >
-            // eslint-disable-next-line vue/valid-v-for
-            <option v-for="hazard in hazards" :key="0">{{ hazard.hazards }}</option>
-          </select>
-        </div>
-        <div class="form-group col-sm-3 child">
-          <label for="hazardControl">Controls</label>
-          <input
-            type="text"
-            id="hazardControl"
-            name="hazardControl"
-            class="form-group"
-            read-only
-            :placeholder="`${control}`"
-            v-model="control"
-          />
-        </div>
-        <div class="form-group col-sm-2 child">
-          <button>Add Photo</button>
+            <div v-for="(step, x) in hazardsAdded" :key="x" class="" style="display: flex">
+              <input type="text" readonly class="form-control" :placeholder="`${step.hazard}`" />
+              <input type="text" readonly class="form-control" :placeholder="`${step.control}`" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group child col-sm-6">
+              <label for="hazardSelection">Hazards</label>
+              <select
+                class="form-group"
+                id="hazardSelection"
+                name="hazardSelection"
+                v-model="hazardControl"
+                style="width: 150px"
+              >
+                // eslint-disable-next-line vue/valid-v-for
+                <option v-for="hazard in hazards" :key="0">{{ hazard.hazards }}</option>
+              </select>
+            </div>
+            <div class="form-group child col-sm-6">
+              <label for="hazardControl">Controls</label>
+              <input
+                type="text"
+                id="hazardControl"
+                name="hazardControl"
+                class="form-group"
+                read-only
+                :placeholder="`${control}`"
+                v-model="control"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </form>
     <div>
-      <!-- <button @click="cancel()">Cancel</button> -->
       <button @click="add()">Add step</button>
-      <!-- <button @click="create()">Finish</button> -->
     </div>
   </div>
 </template>
-<script lang="ts">
+<script>
 import axios from 'axios'
 import { defineComponent } from 'vue'
 import { store } from '../store/store'
-import type { Hazard, StepControl } from '../types'
+// import type { Hazard, Step } from '../types'
 export default defineComponent({
   data() {
     return {
-      hazards: [] as Hazard[],
+      hazardsAdded: [],
+      hazards: [],
       hazardControl: '',
-      control: '' as String,
+      control: '',
       formData: {
-        hazardId: '' as String,
-        stepDescription: ''
+        hazardId: '',
+        stepDescription: '',
+        hazardList: []
       },
-      steps: [] as StepControl[]
+      steps: []
     }
   },
   created() {
@@ -101,53 +105,33 @@ export default defineComponent({
         this.hazards = response.data
       })
     },
-    // cancel() {
-    //   axios
-    //     .post('http://localhost/create.php', { buttonClick: 'CANCEL' })
-    //     .then((response) => {
-    //       console.log(response)
-    //     })
-    //     .catch((error) => {
-    //       console.log(error)
-    //     })
-    // },
     add() {
       console.log(this.formData)
-      // axios
-      //   .post('http://localhost/endpoint/stepdata.php', {
-      //     buttonClick: 'INCLUDE',
-      //     formData: this.formData,
-      //     formId: store.jsaId
-      //   })
-      //   .then((response) => {
-      //     this.steps.push({
-      //       stepDescription: this.formData.stepDescription,
-      //       Hazard: this.hazardControl,
-      //       Control: this.control})
-      //     console.log(response)
-      //   })
-      //   .catch((error) => {
-      //     console.log(error)
-      //   })
+      axios
+        .post('http://localhost/endpoint/stepdata.php', {
+          formData: this.formData,
+          formId: store.jsaId
+        })
+        .then((response) => {
+          this.steps.push({
+            stepDescription: this.formData.stepDescription,
+            hazard: this.hazardControl,
+            control: this.control
+          })
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
       this.steps.push({
         stepDescription: this.formData.stepDescription,
-        Hazard: this.hazardControl,
-        Control: this.control
+        hazard: this.hazardsAdded
       })
       this.hazardControl = ''
       this.control = ''
       this.formData.stepDescription = ''
+      this.hazardsAdded = []
     }
-    // create() {
-    //   axios
-    //     .post('http://localhost/create.php', { buttonClick: 'CREATEJSA' })
-    //     .then((response) => {
-    //       console.log(response)
-    //     })
-    //     .catch((error) => {
-    //       console.log(error)
-    //     })
-    // }
   },
   watch: {
     hazardControl: function (newHazard, oldHazard) {
@@ -155,14 +139,10 @@ export default defineComponent({
       this.hazards
         .filter((record) => record.hazards == newHazard)
         .forEach((p) => {
-          console.log(p.hazards)
-          console.log(p.controls)
-          console.log(p.hazardsId)
+          this.formData.hazardList.push(p.hazardsId)
           this.control = p.controls
           this.formData.hazardId = p.hazardsId
-          // console.log(typeof p.hazardId)
-          // console.log(p.controls)
-          // console.log(p.hazardsId)
+          this.hazardsAdded.push({ hazard: p.hazards, control: p.controls })
         })
     }
   }

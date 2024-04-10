@@ -20,3 +20,16 @@ export interface StepControl {
   Hazard: String
   Control: String
 }
+
+export interface FormView {
+  departmentName: String
+  activity: String
+  formDate: String
+  formId: String
+}
+
+export interface Step {
+  stepDescription: String
+  hazard: String
+  control: String
+}
