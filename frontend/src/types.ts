@@ -9,3 +9,14 @@ export interface Department {
   departmentName: String
   associateName: String
 }
+export interface Hazard {
+  hazardsId: String
+  hazards: String
+  controls: String
+}
+
+export interface StepControl {
+  stepDescription: String
+  Hazard: String
+  Control: String
+}

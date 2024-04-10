@@ -98,6 +98,7 @@ import axios from 'axios'
 import { defineComponent } from 'vue'
 import { store } from '../store/store'
 import type { Associate, Department } from '../types'
+
 export default defineComponent({
   data() {
     return {
@@ -126,26 +127,31 @@ export default defineComponent({
     fetchData() {
       console.log('fetch data')
       axios
-        .get('http://localhost/departments.php')
+        .get('http://localhost/departments.php') // Assuming your PHP backend is running on port 8081
         .then((response) => {
+          console.log(typeof response.data)
           this.department = response.data[0]
           this.people = response.data[1]
+          console.log(response.data[0])
+          console.log('-------')
+          console.log(response.data[1])
         })
         .catch((error) => {
           console.error('Error fetching data:', error)
         })
     },
     createJSA() {
+      console.log(this.formData)
       axios
-        .post('http://localhost/endpoint/metadata.php', {
-          buttonClick: 'ADD',
-          formData: this.formData
-        })
+        .post('http://localhost/create.php', { buttonClick: 'ADD', formData: this.formData })
         .then((response) => {
           console.log(response)
+          console.log(response.status)
           if (response.status == 200) {
-            store.setFormId(response.data.formId)
-            // this.$emit('activate')
+            store.count = 202
+            console.log(response.data)
+            console.log('first good')
+            this.$emit('activate')
           }
         })
         .catch((error) => {
@@ -155,6 +161,8 @@ export default defineComponent({
   },
   watch: {
     departmentName: function (newname, oldname) {
+      console.log(newname)
+
       this.department
         .filter((record) => record.departmentName == newname)
         .forEach((p) => {
@@ -163,6 +171,7 @@ export default defineComponent({
         })
     },
     preparerName: function (newname, oldname) {
+      console.log(newname)
       this.people
         .filter((record) => record.associateName == newname)
         .forEach((p) => {

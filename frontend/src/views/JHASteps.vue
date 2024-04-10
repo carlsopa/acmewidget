@@ -1,31 +1,6 @@
 <template>
   <div>
-    <div id="stepControls" class="form-row">
-      <div class="form-group col-sm-12">
-        <div v-for="(step, x) in steps" :key="x" class="form-row">
-          <input
-            type="text"
-            readonly
-            class="form-control col-sm-4"
-            :placeholder="`${step.stepDescription}`"
-          />
-          <input
-            type="text"
-            readonly
-            class="form-control col-sm-4"
-            :placeholder="`${step.Hazard}`"
-          />
-          <input
-            type="text"
-            readonly
-            class="form-control col-sm-4"
-            :placeholder="`${step.Control}`"
-          />
-        </div>
-      </div>
-    </div>
-
-    <form id="stepForm">
+    <form>
       <div class="form-row">
         <div class="form-group col-sm-4">
           <label for="stepDescription">Step</label>
@@ -67,17 +42,16 @@
       </div>
     </form>
     <div>
-      <!-- <button @click="cancel()">Cancel</button> -->
+      <button @click="cancel()">Cancel</button>
       <button @click="add()">Add step</button>
-      <!-- <button @click="create()">Finish</button> -->
+      <button @click="create()">Finish</button>
     </div>
   </div>
 </template>
 <script lang="ts">
 import axios from 'axios'
 import { defineComponent } from 'vue'
-import { store } from '../store/store'
-import type { Hazard, StepControl } from '../types'
+import type { Hazard } from '../types'
 export default defineComponent({
   data() {
     return {
@@ -87,8 +61,7 @@ export default defineComponent({
       formData: {
         hazardId: '' as String,
         stepDescription: ''
-      },
-      steps: [] as StepControl[]
+      }
     }
   },
   created() {
@@ -101,53 +74,37 @@ export default defineComponent({
         this.hazards = response.data
       })
     },
-    // cancel() {
-    //   axios
-    //     .post('http://localhost/create.php', { buttonClick: 'CANCEL' })
-    //     .then((response) => {
-    //       console.log(response)
-    //     })
-    //     .catch((error) => {
-    //       console.log(error)
-    //     })
-    // },
+    cancel() {
+      axios
+        .post('http://localhost/create.php', { buttonClick: 'CANCEL' })
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
     add() {
       console.log(this.formData)
-      // axios
-      //   .post('http://localhost/endpoint/stepdata.php', {
-      //     buttonClick: 'INCLUDE',
-      //     formData: this.formData,
-      //     formId: store.jsaId
-      //   })
-      //   .then((response) => {
-      //     this.steps.push({
-      //       stepDescription: this.formData.stepDescription,
-      //       Hazard: this.hazardControl,
-      //       Control: this.control})
-      //     console.log(response)
-      //   })
-      //   .catch((error) => {
-      //     console.log(error)
-      //   })
-      this.steps.push({
-        stepDescription: this.formData.stepDescription,
-        Hazard: this.hazardControl,
-        Control: this.control
-      })
-      this.hazardControl = ''
-      this.control = ''
-      this.formData.stepDescription = ''
+      axios
+        .post('http://localhost/create.php', { buttonClick: 'INCLUDE', formData: this.formData })
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    create() {
+      axios
+        .post('http://localhost/create.php', { buttonClick: 'CREATEJSA' })
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
-    // create() {
-    //   axios
-    //     .post('http://localhost/create.php', { buttonClick: 'CREATEJSA' })
-    //     .then((response) => {
-    //       console.log(response)
-    //     })
-    //     .catch((error) => {
-    //       console.log(error)
-    //     })
-    // }
   },
   watch: {
     hazardControl: function (newHazard, oldHazard) {
@@ -160,9 +117,6 @@ export default defineComponent({
           console.log(p.hazardsId)
           this.control = p.controls
           this.formData.hazardId = p.hazardsId
-          // console.log(typeof p.hazardId)
-          // console.log(p.controls)
-          // console.log(p.hazardsId)
         })
     }
   }
