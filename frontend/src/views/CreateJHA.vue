@@ -1,7 +1,7 @@
 <template>
   <container>
     <formJSA @activate="stepActivate" />
-    <createStep />
+    <createStep v-if="step" />
   </container>
 </template>
 <script setup lang="ts">

@@ -71,7 +71,7 @@
       </div>
     </form>
     <div>
-      <button @click="add()">Add step</button>
+      <button @click="add()" class="btn btn-info">Add step</button>
     </div>
   </div>
 </template>

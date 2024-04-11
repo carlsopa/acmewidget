@@ -91,7 +91,7 @@
     <input type="hidden" name="did" :value="`${deptId}`" />
     <input type="hidden" name="eid" :value="`${employeeId}`" />
   </form>
-  <button @click="createJSA()">Click Me!!</button>
+  <button @click="createJSA()" class="btn btn-info">Click Me!!</button>
 </template>
 <script lang="ts">
 import axios from 'axios'
@@ -126,7 +126,7 @@ export default defineComponent({
     fetchData() {
       console.log('fetch data')
       axios
-        .get('http://localhost/get/departments.php')
+        .get('http://localhost/endpoint/get/departments.php')
         .then((response) => {
           this.department = response.data[0]
           this.people = response.data[1]
@@ -147,7 +147,7 @@ export default defineComponent({
           console.log(response)
           if (response.status == 200) {
             store.setFormId(response.data.formId)
-            // this.$emit('activate')
+            this.$emit('activate')
           }
         })
         .catch((error) => {
