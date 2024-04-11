@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import CreateJHA from '@/views/CreateJHA.vue'
+import ViewJHA from '../views/ViewJHA.vue'
+import JHAForm from '@/views/JHAForm.vue'
+import EditForm from '@/views/editForm.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,12 +19,19 @@ const router = createRouter({
       component: CreateJHA
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
+      path: '/view',
+      name: 'view',
+      component: ViewJHA
+    },
+    {
+      path: '/form',
+      name: 'form',
+      component: JHAForm
+    },
+    {
+      path: '/edit',
+      name: 'edit',
+      component: EditForm
     }
   ]
 })
