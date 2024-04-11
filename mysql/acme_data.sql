@@ -90,6 +90,31 @@ INSERT INTO `hazards_controls` (`id`, `hazaards`, `controls`) VALUES
 (5, 'Exposure to noise, vibration, or visual stimuli during testing', 'Implement noise-reducing measures and provide appropriate protection for employees during testing'),
 (6, 'Exposure to electromagnetic radiation during device testing', 'Implement safety protocols for handling electromagnetic radiation or other hazardous substances during testing');
 
+
+--
+CREATE TABLE `jsa_data` (
+  `associateId` int NOT NULL,
+  `departmentId` varchar(255) NOT NULL,
+  `formId` varchar(255) NOT NULL,
+  `formDate` varchar(255) NOT NULL
+  `formLocation` varchar(255) NOT NULL
+  `activity` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+--
+CREATE TABLE `step_hazard` (
+  `step_id` int NOT NULL,
+  `hazard_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+--
+CREATE TABLE `step_hazard` (
+  `step_id` int NOT NULL,
+  `step_description` varchar(255) NOT NULL,
+  `hazard_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 --
 -- Indexes for dumped tables
 --
