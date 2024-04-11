@@ -30,11 +30,12 @@ onMounted(() => {
 </script>
 <style scoped>
 .formList-Item {
-  padding: 10px 0;
+  padding: 10px 10px;
   background-color: #f2f6fc;
   display: flex;
   box-shadow: inset 0 -1px 0 0 rgba(100, 121, 143, 0.122);
   position: relative;
+  justify-content: space-between;
 }
 .formList-Item:hover {
   box-shadow:

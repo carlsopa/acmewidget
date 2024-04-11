@@ -2,13 +2,16 @@
   <div>
     <div class="form-controls" style="display: flex; gap: 20px; padding: 15px 0">
       <div @click="deleteForm()" class="btn btn-secondary">Delete</div>
-      <div @click="editForm()" class="btn btn-secondary">Edit</div>
     </div>
     <div class="jha-form">
       <div class="jha-metadata">
-        <div class="form-row">
-          <div class="formActivity">{{ metaData['activity'] }}</div>
-          <div class="formDate">{{ metaData['formDate'] }}</div>
+        <div class="form-row" style="justify-content: space-between">
+          <div class="formActivity" style="font-size: 30px; font-weight: 800">
+            {{ metaData['activity'] }}
+          </div>
+          <div class="formDate" style="font-style: italic; font-size: 16px">
+            {{ metaData['formDate'] }}
+          </div>
         </div>
         <div class="form-row">
           <div class="col-sm-6">
@@ -42,7 +45,7 @@
           </div>
         </div>
       </div>
-      <div class="jha-steps">
+      <div class="jha-steps" v-if="stepData.length > 0">
         <div class="form-row">
           <div class="stepTitle col-sm-6">Step Description</div>
           <div class="stepTitle col-sm-6">Hazard/Controls</div>
