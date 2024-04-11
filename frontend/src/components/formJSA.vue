@@ -126,10 +126,12 @@ export default defineComponent({
     fetchData() {
       console.log('fetch data')
       axios
-        .get('http://localhost/departments.php')
+        .get('http://localhost/get/departments.php')
         .then((response) => {
           this.department = response.data[0]
           this.people = response.data[1]
+          store.setDepartmentValue(response.data[0])
+          store.setAssociateValue(response.data[1])
         })
         .catch((error) => {
           console.error('Error fetching data:', error)
@@ -137,7 +139,7 @@ export default defineComponent({
     },
     createJSA() {
       axios
-        .post('http://localhost/endpoint/metadata.php', {
+        .post('http://localhost/endpoint/put/metadata.php', {
           buttonClick: 'ADD',
           formData: this.formData
         })

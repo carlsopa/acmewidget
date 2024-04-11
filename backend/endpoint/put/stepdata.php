@@ -30,8 +30,6 @@ try {
 
     $stmt2 = $conn->prepare("INSERT INTO steps (step_id,step_description,form_id) values (?,?,?)");
     $stmt2->bind_param("isi", $stepId, $stepDescription, $formId);
-    $stmt2->execute();
-
     // Check the success of the second statement
     if (!$stmt2->execute()) {
         echo json_encode(['success' => false, 'message' => 'something went wrong with the step push']);

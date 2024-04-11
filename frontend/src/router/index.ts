@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import CreateJHA from '@/views/CreateJHA.vue'
 import ViewJHA from '../views/ViewJHA.vue'
 import JHAForm from '@/views/JHAForm.vue'
+import EditForm from '@/views/editForm.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: '/form',
       name: 'form',
       component: JHAForm
+    },
+    {
+      path: '/edit',
+      name: 'edit',
+      component: EditForm
     },
     {
       path: '/about',

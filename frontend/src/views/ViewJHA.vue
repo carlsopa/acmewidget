@@ -6,10 +6,6 @@
         <div class="list-department">{{ a['departmentName'] }}</div>
         <div class="list-activity">{{ a['activity'] }}</div>
         <div class="list-date">{{ a['formDate'] }}</div>
-        <!-- <div id="editControls">
-          <div class="editButton">Edit</div>
-          <div class="deleteButton">Delete</div>
-        </div> -->
       </div>
     </div>
   </div>
@@ -20,25 +16,15 @@ import { store } from '../store/store'
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
 const route = useRouter()
-const dd = [
-  { departmentName: 'a', activity: 'a', fromDate: 'a', id: 1 },
-  { departmentName: 'b', activity: 'b', fromDate: 'b', id: 2 },
-  { departmentName: 'c', activity: 'c', fromDate: 'c', id: 3 },
-  { departmentName: 'd', activity: 'd', fromDate: 'd', id: 4 },
-  { departmentName: 'e', activity: 'e', fromDate: 'e', id: 5 }
-]
 const forms = ref([])
 function clickie(d) {
   store.setView(d)
-  route.push({ path: '/' })
+  route.push({ path: '/form' })
 }
-// const clickie() =>{
-// 	console.log('you cliked me');
-// }
 onMounted(() => {
-  axios.get('http://localhost/endpoint/forms.php').then((response) => {
+  axios.get('http://localhost/endpoint/get/forms.php').then((response) => {
     console.log(response)
-    forms.value = response
+    forms.value = response.data
   })
 })
 </script>

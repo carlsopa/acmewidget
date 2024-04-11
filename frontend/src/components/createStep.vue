@@ -79,7 +79,6 @@
 import axios from 'axios'
 import { defineComponent } from 'vue'
 import { store } from '../store/store'
-// import type { Hazard, Step } from '../types'
 export default defineComponent({
   data() {
     return {
@@ -100,37 +99,33 @@ export default defineComponent({
   },
   methods: {
     fetchData() {
-      axios.get('http://localhost/hazards.php').then((response) => {
-        console.log(response.data)
+      axios.get('http://localhost/endpoint/get/hazards.php').then((response) => {
+        console.log(response)
         this.hazards = response.data
+        store.setHazardValue(response.data)
       })
     },
     add() {
       console.log(this.formData)
       axios
-        .post('http://localhost/endpoint/stepdata.php', {
+        .post('http://localhost/endpoint/put/stepdata.php', {
           formData: this.formData,
           formId: store.jsaId
         })
-        .then((response) => {
-          this.steps.push({
-            stepDescription: this.formData.stepDescription,
-            hazard: this.hazardControl,
-            control: this.control
-          })
-          console.log(response)
-        })
+        .then(() => {})
         .catch((error) => {
           console.log(error)
         })
       this.steps.push({
         stepDescription: this.formData.stepDescription,
-        hazard: this.hazardsAdded
+        hazard: this.hazardsAdded,
+        control: this.control
       })
       this.hazardControl = ''
       this.control = ''
       this.formData.stepDescription = ''
       this.hazardsAdded = []
+      this.formData.hazardList = []
     }
   },
   watch: {

@@ -1,6 +1,5 @@
 <template>
   <container>
-    {{ store.jsaId }}
     <formJSA @activate="stepActivate" />
     <createStep />
   </container>
