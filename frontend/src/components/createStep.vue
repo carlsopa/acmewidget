@@ -99,7 +99,7 @@ export default defineComponent({
   },
   methods: {
     fetchData() {
-      axios.get('http://localhost/endpoint/get/hazards.php').then((response) => {
+      axios.get('http://localhost/api/hazards').then((response) => {
         console.log(response)
         this.hazards = response.data
         store.setHazardValue(response.data)
@@ -108,7 +108,7 @@ export default defineComponent({
     add() {
       console.log(this.formData)
       axios
-        .post('http://localhost/endpoint/put/stepdata.php', {
+        .post('http://localhost/api/steps', {
           formData: this.formData,
           formId: store.jsaId
         })

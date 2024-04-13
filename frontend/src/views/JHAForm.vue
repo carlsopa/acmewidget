@@ -93,7 +93,7 @@ const metaData = ref({})
 const stepData = ref({})
 const deleteForm=()=>{
   if(confirm("do you want this?")){
-    axios.get('http://localhost/delete/delete.php',{params:{id:store.formView}}).then((response)=>{
+    axios.delete('http://localhost/api/delete/form',{params:{id:store.formView}}).then((response)=>{
       console.log(response);
     })
   }
@@ -101,7 +101,7 @@ const deleteForm=()=>{
 onMounted(()=>{
   console.log('this');
   console.log(store)
-	axios.get('http://localhost/endpoint/get/creation.php',{params:{id:store.formView}}).then((response) => {
+	axios.get('http://localhost/endpoint/api/create',{params:{id:store.formView}}).then((response) => {
         console.log(response.data)
         store.setFormValue(response.data);
 				metaData.value = response.data['commonData'];
