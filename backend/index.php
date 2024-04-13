@@ -30,6 +30,10 @@ switch($method){
 				require 'endpoint/get/hazards.php';
 				break;
 			} 
-
+	case'DELETE':
+		switch($path){
+			case '/api/delete/form':
+				require 'endpoint/delete/delete.php';
+		}
 	}
 ?>
