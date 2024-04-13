@@ -1,8 +1,4 @@
 <?php
-header("Access-Control-Allow-Origin: *"); 
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS"); 
-header("Access-Control-Allow-Headers: Origin, Content-Type, Accept, Authorization"); 
-
 $data = json_decode(file_get_contents('php://input'),true);
 
 	$serverName = "again-db-1";
@@ -28,7 +24,7 @@ $stmt->bind_param("isssss",$empId,$deptId,$formId,$date,$location,$activity);
 	echo json_encode(['success'=>false,'message'=>'something bad']);
 	return false;
  } else{
-	echo json_encode(['success'=>true,'formId'=>$formId,'message'=>'this actually worked']);
+	echo json_encode(['success'=>true,'formId'=>$formId]);
  }
 $conn->commit();
 ?>
