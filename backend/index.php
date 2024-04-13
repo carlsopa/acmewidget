@@ -5,18 +5,37 @@ header("Access-Control-Allow-Headers: Origin, Content-Type, Accept, Authorizatio
 
 
 $method = $_SERVER['REQUEST_METHOD'];
-$path = $_SEVER['REQUEST_URI'];
+$path = $_SERVER['REQUEST_URI'];
+if($method === 'POST'){
+	switch($path) {
+	case '/api/data':
+		require 'endpoint/put/metadata.php';
+		break;
+	case '/api/steps':
+		require 'endpoint/put/stepdata.php';
+	case '/api/hazards':
+		require 'endpoint/get/hazards.php';
+		break;
+	} 
+}
+if($method === 'PUT'){
 
-switch($path) {
-	case '/api/metadata':
-		require 'endpoint/metadata.php';
+}
+if($method === 'GET'){
+	switch($path) {
+	case '/api/data':
+		require 'endpoint/get/creation.php';
+		break;
+	case '/api/steps':
+		require 'endpoint/get/departments.php';
+	case '/api/hazards':
+		require 'endpoint/get/forms.php';
 		break;
 	case '/api/hazards':
 		require 'endpoint/get/hazards.php';
 		break;
-	default:
-		http_response_code(404);
-		echo json_encode(['error'=>'Not Found']);
-} 
+	} 
+}
+
 
 ?>
