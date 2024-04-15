@@ -83,7 +83,7 @@ export default defineComponent({
   data() {
     return {
       hazardsAdded: [],
-      hazards: [],
+      hazards: store.jsaHazards,
       hazardControl: '',
       control: '',
       formData: {
@@ -94,17 +94,7 @@ export default defineComponent({
       steps: []
     }
   },
-  created() {
-    this.fetchData()
-  },
   methods: {
-    fetchData() {
-      axios.get('http://localhost/api/hazards').then((response) => {
-        console.log(response)
-        this.hazards = response.data
-        store.setHazardValue(response.data)
-      })
-    },
     add() {
       console.log(this.formData)
       axios

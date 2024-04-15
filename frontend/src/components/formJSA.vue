@@ -105,8 +105,8 @@ export default defineComponent({
       departmentName: '',
       preparerTitle: '',
       supervisorName: '' as String,
-      department: [] as Department[],
-      people: [] as Associate[],
+      department: store.jsaDepartments,
+      people: store.jsaAssociates,
       employeeId: 0,
       deptId: 0,
       formData: {
@@ -120,7 +120,7 @@ export default defineComponent({
   },
   created() {
     this.formData.createdDate = new Date().toLocaleDateString()
-    this.fetchData()
+    // this.fetchData()
   },
   methods: {
     fetchData() {

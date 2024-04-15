@@ -1,7 +1,23 @@
 <script setup lang="ts">
+import axios from 'axios'
+import { store } from './store/store'
+import { ref, onMounted } from 'vue'
 import TopBar from './components/TopBar.vue'
-// import { RouterLink, RouterView } from 'vue-router'
-// import HelloWorld from './components/HelloWorld.vue'
+
+const fetchFormData = async () => {
+  try {
+    const hazards = await axios.get('http://localhost/api/hazards')
+    store.setHazardValue(hazards.data)
+    const deptAssoc = await axios.get('http://localhost/api/departments')
+    store.setDepartmentValue(deptAssoc.data[0])
+    store.setAssociateValue(deptAssoc.data[1])
+  } catch (error) {
+    console.log(error)
+  }
+}
+onMounted(() => {
+  fetchFormData()
+})
 </script>
 
 <template>
