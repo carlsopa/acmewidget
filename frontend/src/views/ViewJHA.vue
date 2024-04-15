@@ -2,7 +2,7 @@
   <div>
     <div id="controls"></div>
     <div id="formList">
-      <div v-for="(a, b) in forms" :key="b" class="formList-Item" @click="clickie(a.formId)">
+      <div v-for="(a, b) in forms" :key="b" class="formList-Item" @click="openForm(a.formId)">
         <div class="list-department">{{ a['departmentName'] }}</div>
         <div class="list-activity">{{ a['activity'] }}</div>
         <div class="list-date">{{ a['formDate'] }}</div>
@@ -11,18 +11,18 @@
   </div>
 </template>
 <script setup>
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { store } from '../store/store'
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
 const route = useRouter()
 const forms = ref([])
-function clickie(d) {
-  store.setView(d)
+function openForm(formId) {
+  store.setView(formId)
   route.push({ path: '/form' })
 }
 onMounted(() => {
-  axios.get('http://localhost/endpoint/get/forms.php').then((response) => {
+  axios.get('http://localhost/api/forms').then((response) => {
     console.log(response)
     forms.value = response.data
   })

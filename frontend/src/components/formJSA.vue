@@ -97,7 +97,6 @@
 import axios from 'axios'
 import { defineComponent } from 'vue'
 import { store } from '../store/store'
-import type { Associate, Department } from '../types'
 export default defineComponent({
   data() {
     return {
@@ -156,7 +155,7 @@ export default defineComponent({
     }
   },
   watch: {
-    departmentName: function (newname, oldname) {
+    departmentName: function (newname) {
       this.department
         .filter((record) => record.departmentName == newname)
         .forEach((p) => {
@@ -164,7 +163,7 @@ export default defineComponent({
           this.formData.dept = p.departmentID
         })
     },
-    preparerName: function (newname, oldname) {
+    preparerName: function (newname) {
       this.people
         .filter((record) => record.associateName == newname)
         .forEach((p) => {
