@@ -18,6 +18,8 @@ switch($method){
 	case'GET':
 		switch($path) {
 			case '/api/create':
+				// echo "create path"
+				echo $path;
 				require 'endpoint/get/creation.php';
 				break;
 			case '/api/departments':
