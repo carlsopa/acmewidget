@@ -29,9 +29,11 @@ VIEW - once you create a form it will appear here. You can then click on any for
 CREATE - This is where you will create your new forms. You must enter the metadata first before you can continue on to entering steps, hazards/controls.
 
 **NOTE**
+
 As of 4/14 there have been updates to the develop branch. Since I had already submitted previously I have left my main branch as is, but made changes to the develop branch. These changes include:
 - adding .htaccess file to allow routing within with docker
 - adding index.php for routing api calls instead of direct file access
 - updating front end to utilize the store for content management
 - updating to front end to allow for gathering of basic data right away instead of individual components
 - code clean up
+- sanitization of inputs
