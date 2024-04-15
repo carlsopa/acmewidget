@@ -15,16 +15,17 @@ $conn = new mysqli($serverName, $userName, $password, $database);
 $formData = $data['formData'];
 $formId = $data['formId'];
 
-$stepDescription = $formData['stepDescription'];
-$hazardId = $formData['hazardId'];
-$hazardList = $formData['hazardList'];
+$stepDescription = $conn->real_string_escape($formData['stepDescription']);
+$hazardId = $conn->real_string_escape($formData['hazardId']);
+$hazardList = $conn->real_string_escape($formData['hazardList']);
 
 $conn->begin_transaction();
 
 try {
     foreach ($hazardList as $hazard) {
+        $hazardDesc = $conn->real_string_escape($hazard);
         $stmt = $conn->prepare("INSERT INTO step_hazard (step_id,hazard_id) VALUES(?,?);");
-        $stmt->bind_param("ii", $stepId, $hazard);
+        $stmt->bind_param("ii", $stepId, $hazardDesc);
         $stmt->execute();
     }
 

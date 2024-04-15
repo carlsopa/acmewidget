@@ -1,4 +1,6 @@
 <?php
+
+
 $serverName = "again-db-1";
 $userName = "root";
 $password = "password";

@@ -11,11 +11,11 @@ $conn = new mysqli($serverName, $userName, $password, $database);
 $formData = $data['formData'];
 
 
-$deptId=$formData['dept'];
-$empId=$formData['preparer'];
-$location=$formData['location'];
-$activity=$formData['activity'];	
-$date=$formData['createdDate'];
+$deptId=$conn->real_string_escape($formData['dept']);
+$empId=$conn->real_string_escape($formData['preparer']);
+$location=$conn->real_string_escape($formData['location']);
+$activity=$conn->real_string_escape($formData['activity']);	
+$date=$conn->real_string_escape($formData['createdDate']);
 
 $stmt = $conn->prepare("INSERT INTO jsa_data (associateId,departmentId,formId,formDate,formLocation,activity) VALUES (?,?,?,?,?,?)");
 $stmt->bind_param("isssss",$empId,$deptId,$formId,$date,$location,$activity);

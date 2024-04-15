@@ -100,10 +100,9 @@ const deleteForm=()=>{
 }
 onMounted(()=>{
   console.log('this');
-  console.log(store)
-	axios.get('http://localhost/endpoint/api/create',{params:{id:store.formView}}).then((response) => {
-        console.log(response.data)
-        store.setFormValue(response.data);
+	axios.get('http://localhost/endpoint/get/creation.php',{params:{id:store.formView}}).then((response) => {
+        console.log(response)
+        store.setFormValue(response.data)
 				metaData.value = response.data['commonData'];
         stepData.value = response.data['uniqueData'];
       })

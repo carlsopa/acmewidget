@@ -119,23 +119,8 @@ export default defineComponent({
   },
   created() {
     this.formData.createdDate = new Date().toLocaleDateString()
-    // this.fetchData()
   },
   methods: {
-    fetchData() {
-      console.log('fetch data')
-      axios
-        .get('http://localhost/api/departments')
-        .then((response) => {
-          this.department = response.data[0]
-          store.setDepartmentValue(response.data[0])
-          this.people = response.data[1]
-          store.setAssociateValue(response.data[1])
-        })
-        .catch((error) => {
-          console.error('Error fetching data:', error)
-        })
-    },
     createJSA() {
       axios
         .post('http://localhost/api/data', {

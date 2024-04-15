@@ -1,7 +1,3 @@
-<script setup lang="ts">
-// import TheWelcome from '../components/TheWelcome.vue'
-</script>
-
 <template>
   <div>
     <p>
@@ -26,7 +22,26 @@
       well-being of our workforce.
     </p>
   </div>
+  <form>
+    <select v-model="valueA">
+      <option>a</option>
+      <option>b</option>
+      <option>c</option>
+      <option>D</option>
+      <option>e</option>
+    </select>
+  </form>
   <!-- <main>
     <TheWelcome />
   </main> -->
 </template>
+<script>
+import { defineComponent } from 'vue'
+export default defineComponent({
+  data() {
+    return {
+      valueA: 'b'
+    }
+  }
+})
+</script>

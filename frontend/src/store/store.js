@@ -15,6 +15,7 @@ export const store = reactive({
 		this.formView = value;
 	},
 	setFormValue(value) {
+		console.log(value);
 		this.jsaForm = value;
 	},
 	setAssociateValue(value) {

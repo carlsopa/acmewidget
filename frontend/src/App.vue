@@ -23,9 +23,22 @@ onMounted(() => {
 <template>
   <TopBar />
   <RouterView />
+  <div id="alertBox">This is your message</div>
 </template>
 
 <style scoped>
+#alertBox {
+  background-color: aqua;
+  width: 50%;
+  position: absolute;
+  bottom: 10%;
+  height: 60px;
+  font-size: 24px;
+  text-align: center;
+  padding-top: 8px;
+  left: calc(50% - 25%);
+  border-radius: 30px;
+}
 header {
   line-height: 1.5;
   max-height: 100vh;
